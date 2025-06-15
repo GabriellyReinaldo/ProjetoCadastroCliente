@@ -15,6 +15,24 @@ $(document).ready(function () {
         $('#formCadastro #Logradouro').val(obj.Logradouro);
         $('#formCadastro #Telefone').val(obj.Telefone);
         $('#formCadastro #CPF').val(mascaraCPF(obj.CPF));
+
+        if (obj.Beneficiarios && obj.Beneficiarios.length > 0) {
+            beneficiariosList = obj.Beneficiarios;
+
+            obj.Beneficiarios.forEach(function (b) {
+                const novaLinha =
+                    `<tr>
+                        <td>${mascaraCPF(b.CPF)}</td>
+                        <td>${b.Nome}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm">Alterar</button>
+                            <button type="button" class="btn btn-danger btn-sm">Excluir</button>
+                        </td>
+                    </tr>`;
+
+                $('#tabelaBeneficiarios').append(novaLinha);
+            });
+        }
     }
 
     $('#formCadastro').submit(function (e) {
@@ -26,6 +44,13 @@ $(document).ready(function () {
             ModalDialog("CPF Inválido", "Por favor, informe um CPF válido.");
             return;
         }
+
+        const beneficiariosFormatados = beneficiariosList.map(function (b) {
+            return {
+                CPF: b.CPF.replace(/\D/g, ''),
+                Nome: b.Nome
+            };
+        });
         
         $.ajax({
             url: urlPost,
@@ -40,7 +65,8 @@ $(document).ready(function () {
                 "Cidade": $(this).find("#Cidade").val(),
                 "Logradouro": $(this).find("#Logradouro").val(),
                 "Telefone": $(this).find("#Telefone").val(),
-                "CPF": $(this).find("#CPF").val().replace(/\D/g, '') 
+                "CPF": $(this).find("#CPF").val().replace(/\D/g, ''),
+                "Beneficiarios": beneficiariosFormatados
             },
             error:
             function (r) {

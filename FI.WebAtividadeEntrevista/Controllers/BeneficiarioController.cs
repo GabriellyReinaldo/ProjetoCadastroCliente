@@ -1,8 +1,4 @@
 ﻿using FI.AtividadeEntrevista.BLL;
-using FI.AtividadeEntrevista.DML;
-using FI.WebAtividadeEntrevista.Models;
-using System;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace FI.WebAtividadeEntrevista.Controllers
@@ -22,7 +18,7 @@ namespace FI.WebAtividadeEntrevista.Controllers
         [HttpPost]
         public JsonResult Incluir(string CPF, string Nome)
         {
-            BoBeneficiario bo = new BoBeneficiario();
+            //BoBeneficiario bo = new BoBeneficiario();
 
             //if (bo.VerificarExistencia(CPF))
             //{

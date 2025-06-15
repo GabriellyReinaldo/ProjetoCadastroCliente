@@ -38,22 +38,20 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        const indexExistente = beneficiariosList.findIndex(b => b.CPF.replace(/\D/g, '') === cpf.replace(/\D/g, ''));
+
+        if (indexExistente !== -1) {
+            beneficiariosList[indexExistente].Nome = nome;
+
+            carregarTabelaBeneficiarios();
+
+            inputCPF.value = '';
+            inputNome.value = '';
+            return;
+        }
+
         beneficiariosList.push({ CPF: cpf, Nome: nome });
-
-        const novaLinha = document.createElement('tr');
-        novaLinha.innerHTML = `
-            <tr>
-                <td>${cpf}</td>
-                <td>${nome}</td>
-                <td>
-                    <button type="button" class="btn btn-primary btn-sm">Alterar</button>
-                    <button type="button" class="btn btn-danger btn-sm">Excluir</button>
-                </td>
-            </tr>
-        `;
-
-        tabela.appendChild(novaLinha);
-
+        carregarTabelaBeneficiarios();
         
         inputCPF.value = '';
         inputNome.value = '';
@@ -64,30 +62,51 @@ document.addEventListener("DOMContentLoaded", function () {
         inputNome.value = '';
     });
 
-    // Evento delegado para excluir beneficiário
+    $('#modalBeneficiarios').on('show.bs.modal', function () {
+        carregarTabelaBeneficiarios();
+    });
+
     tabela.addEventListener('click', function (event) {
-        if (event.target.classList.contains('btn-danger')) {
-            const linha = event.target.closest('tr');
-            if (linha) {
-                linha.remove();
+        const linha = event.target.closest('tr');
+        if (!linha) return;
+
+        const cpf = linha.children[0].textContent.trim();
+        const nome = linha.children[1].textContent.trim();
+
+        if (event.target.id === 'btnExcluir') {
+            // Remove da lista beneficiariosList
+            const index = beneficiariosList.findIndex(b => b.CPF.replace(/\D/g, '') === cpf.replace(/\D/g, ''));
+            if (index !== -1) {
+                beneficiariosList.splice(index, 1);
             }
+
+            // Remove da tabela
+            linha.remove();
         }
 
-        // Evento delegado para alterar beneficiário
-        if (event.target.classList.contains('btn-primary')) {
-            const linha = event.target.closest('tr');
-            if (linha) {
-                const cpf = linha.children[0].textContent.trim();
-                const nome = linha.children[1].textContent.trim();
+        if (event.target.id === 'btnAlterar') {
+            inputCPF.value = cpf;
+            inputNome.value = nome;
 
-                // Preenche os campos do formulário
-                inputCPF.value = cpf;
-                inputNome.value = nome;
-
-                // Remove a linha para permitir reedição
-                linha.remove();
-            }
+            linha.remove();
         }
     });
+
+    function carregarTabelaBeneficiarios() {
+        tabela.innerHTML = '';
+
+        beneficiariosList.forEach(b => {
+            const novaLinha = document.createElement('tr');
+            novaLinha.innerHTML = `
+            <td>${mascaraCPF(b.CPF)}</td>
+            <td>${b.Nome}</td>
+            <td>
+                <button type="button" id="btnAlterar" class="btn btn-primary btn-sm">Alterar</button>
+                <button type="button" id="btnExcluir" class="btn btn-primary btn-sm">Excluir</button>
+            </td>
+        `;
+            tabela.appendChild(novaLinha);
+        });
+    }
 });
 

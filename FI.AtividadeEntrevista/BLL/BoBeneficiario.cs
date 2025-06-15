@@ -29,25 +29,23 @@ namespace FI.AtividadeEntrevista.BLL
         }
 
         /// <summary>
-        /// Consulta o beneficiario pelo id
+        /// Consulta o beneficiario pelo id do cliente
         /// </summary>
         /// <param name="id">id do beneficiario</param>
-        /// <returns></returns>
-        public DML.Beneficiario Consultar(long id)
+        public List<DML.Beneficiario> ConsultarListaBeneficiario(long id)
         {
             DAL.Beneficiario.DaoBeneficiario bo = new DAL.Beneficiario.DaoBeneficiario();
-            return bo.Consultar(id);
+            return bo.ConsultarListaBeneficiario(id);
         }
 
         /// <summary>
-        /// Excluir o beneficiario pelo id
+        /// Excluir o beneficiario pelo cpf
         /// </summary>
-        /// <param name="id">id do beneficiario</param>
-        /// <returns></returns>
-        public void Excluir(long id)
+        /// <param name="cpf">cpf do beneficiario</param>
+        public void Excluir(string cpf)
         {
             DAL.Beneficiario.DaoBeneficiario bo = new DAL.Beneficiario.DaoBeneficiario();
-            bo.Excluir(id);
+            bo.Excluir(cpf);
         }
     }
 }

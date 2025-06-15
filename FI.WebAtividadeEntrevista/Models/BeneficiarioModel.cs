@@ -9,7 +9,6 @@ namespace FI.WebAtividadeEntrevista.Models
         /// <summary>
         /// Nome
         /// </summary>
-        [Required]
         public string Nome { get; set; }
 
         /// <summary>
@@ -17,6 +16,9 @@ namespace FI.WebAtividadeEntrevista.Models
         /// </summary>
         public string CPF { get; set; }
 
+        /// <summary>
+        /// IDCLIENTE
+        /// </summary>
         public long IdCliente { get; set; }
     }
 }

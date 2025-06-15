@@ -12,6 +12,13 @@
             return; 
         }
 
+        const beneficiariosFormatados = beneficiariosList.map(function (b) {
+            return {
+                CPF: b.CPF.replace(/\D/g, ''),
+                Nome: b.Nome
+            };
+        });
+
         $.ajax({
             url: urlPost,
             method: "POST",
@@ -26,7 +33,7 @@
                 "Logradouro": $(this).find("#Logradouro").val(),
                 "Telefone": $(this).find("#Telefone").val(),
                 "CPF": $(this).find("#CPF").val().replace(/\D/g, ''),
-                "Beneficiarios": beneficiariosList
+                "Beneficiarios": beneficiariosFormatados
             },
             error:
             function (r) {

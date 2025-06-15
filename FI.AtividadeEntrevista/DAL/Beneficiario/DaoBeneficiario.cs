@@ -19,6 +19,7 @@ namespace FI.AtividadeEntrevista.DAL.Beneficiario
 
             parametros.Add(new System.Data.SqlClient.SqlParameter("Nome", beneficiario.Nome));
             parametros.Add(new System.Data.SqlClient.SqlParameter("CPF", beneficiario.CPF));
+            parametros.Add(new System.Data.SqlClient.SqlParameter("IDCLIENTE", beneficiario.IdCliente));
 
             DataSet ds = base.Consultar("FI_SP_IncBeneficiario", parametros);
             long ret = 0;
@@ -38,36 +39,36 @@ namespace FI.AtividadeEntrevista.DAL.Beneficiario
             parametros.Add(new System.Data.SqlClient.SqlParameter("Nome", beneficiario.Nome));
             parametros.Add(new System.Data.SqlClient.SqlParameter("CPF", beneficiario.CPF));
 
-            base.Executar("FI_SP_AltCliente", parametros);
+            base.Executar("FI_SP_AltBeneficiario", parametros);
         }
 
         /// <summary>
         /// Inclui um novo beneficiario
         /// </summary>
         /// <param name="beneficiario">Objeto de beneficiario</param>
-        internal DML.Beneficiario Consultar(long Id)
+        internal List<DML.Beneficiario> ConsultarListaBeneficiario(long Id)
         {
             List<System.Data.SqlClient.SqlParameter> parametros = new List<System.Data.SqlClient.SqlParameter>();
 
-            parametros.Add(new System.Data.SqlClient.SqlParameter("Id", Id));
+            parametros.Add(new System.Data.SqlClient.SqlParameter("IdCliente", Id));
 
-            DataSet ds = base.Consultar("FI_SP_ConsCliente", parametros);
+            DataSet ds = base.Consultar("FI_SP_ConsBeneficiario", parametros);
             List<DML.Beneficiario> bo = Converter(ds);
 
-            return bo.FirstOrDefault();
+            return bo;
         }
 
         /// <summary>
         /// Excluir Beneficiario
         /// </summary>
         /// <param name="beneficiario">Objeto de beneficiario</param>
-        internal void Excluir(long Id)
+        internal void Excluir(string cpf)
         {
             List<System.Data.SqlClient.SqlParameter> parametros = new List<System.Data.SqlClient.SqlParameter>();
 
-            parametros.Add(new System.Data.SqlClient.SqlParameter("Id", Id));
+            parametros.Add(new System.Data.SqlClient.SqlParameter("CPF", cpf));
 
-            base.Executar("FI_SP_DelCliente", parametros);
+            base.Executar("FI_SP_DelBeneficiario", parametros);
         }
 
         private List<DML.Beneficiario> Converter(DataSet ds)
