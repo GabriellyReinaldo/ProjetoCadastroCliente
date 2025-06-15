@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace FI.WebAtividadeEntrevista.Models
+﻿namespace FI.WebAtividadeEntrevista.Models
 {
     public class BeneficiarioModel
     {

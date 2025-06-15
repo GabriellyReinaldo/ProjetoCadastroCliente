@@ -31,7 +31,7 @@ namespace FI.AtividadeEntrevista.BLL
         /// <summary>
         /// Consulta o beneficiario pelo id do cliente
         /// </summary>
-        /// <param name="id">id do beneficiario</param>
+        /// <param name="id">id do cliente</param>
         public List<DML.Beneficiario> ConsultarListaBeneficiario(long id)
         {
             DAL.Beneficiario.DaoBeneficiario bo = new DAL.Beneficiario.DaoBeneficiario();

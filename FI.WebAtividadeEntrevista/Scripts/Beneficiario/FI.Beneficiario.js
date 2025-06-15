@@ -74,13 +74,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const nome = linha.children[1].textContent.trim();
 
         if (event.target.id === 'btnExcluir') {
-            // Remove da lista beneficiariosList
             const index = beneficiariosList.findIndex(b => b.CPF.replace(/\D/g, '') === cpf.replace(/\D/g, ''));
             if (index !== -1) {
                 beneficiariosList.splice(index, 1);
             }
 
-            // Remove da tabela
             linha.remove();
         }
 

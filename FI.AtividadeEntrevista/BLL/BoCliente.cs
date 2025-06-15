@@ -69,7 +69,7 @@ namespace FI.AtividadeEntrevista.BLL
         }
 
         /// <summary>
-        /// VerificaExistencia
+        /// Verifica Existencia
         /// </summary>
         /// <param name="CPF"></param>
         /// <returns></returns>

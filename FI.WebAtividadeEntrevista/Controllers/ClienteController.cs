@@ -113,14 +113,13 @@ namespace WebAtividadeEntrevista.Controllers
 
                 BoBeneficiario boBeneficiario = new BoBeneficiario();
 
-                var beneficiariosAntigos = boBeneficiario.ConsultarListaBeneficiario(model.Id);
+                var beneficiarioExistente = boBeneficiario.ConsultarListaBeneficiario(model.Id);
 
                 var cpfsAtuais = model.Beneficiarios?.Select(b => b.CPF.Replace(".", "").Replace("-", "")).ToList() ?? new List<string>();
 
-                foreach (var antigo in beneficiariosAntigos)
+                foreach (var antigo in beneficiarioExistente)
                 {
-                    var cpfAntigoLimpo = antigo.CPF.Replace(".", "").Replace("-", "");
-                    if (!cpfsAtuais.Contains(cpfAntigoLimpo))
+                    if (!cpfsAtuais.Contains(antigo.CPF))
                     {
                         boBeneficiario.Excluir(antigo.CPF);
                     }
@@ -136,9 +135,7 @@ namespace WebAtividadeEntrevista.Controllers
                             Nome = beneficiarioModel.Nome,
                             CPF = beneficiarioModel.CPF,
                             IdCliente = model.Id
-                        };
-
-                        var beneficiarioExistente = boBeneficiario.ConsultarListaBeneficiario(model.Id); // necessario esse get novamente?
+                        }; 
 
                         bool existeCPFCadastrado = beneficiarioExistente.Exists(x => x.CPF == beneficiario.CPF);
 

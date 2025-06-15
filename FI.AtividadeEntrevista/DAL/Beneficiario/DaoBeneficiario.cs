@@ -29,7 +29,7 @@ namespace FI.AtividadeEntrevista.DAL.Beneficiario
         }
 
         /// <summary>
-        /// Inclui um novo beneficiario
+        /// Alterar um beneficiario
         /// </summary>
         /// <param name="beneficiario">Objeto de beneficiario</param>
         internal void Alterar(DML.Beneficiario beneficiario)
@@ -43,9 +43,9 @@ namespace FI.AtividadeEntrevista.DAL.Beneficiario
         }
 
         /// <summary>
-        /// Inclui um novo beneficiario
+        /// Consulta lista de beneficiario
         /// </summary>
-        /// <param name="beneficiario">Objeto de beneficiario</param>
+        /// <param name="id">id do cliente</param>
         internal List<DML.Beneficiario> ConsultarListaBeneficiario(long Id)
         {
             List<System.Data.SqlClient.SqlParameter> parametros = new List<System.Data.SqlClient.SqlParameter>();
@@ -61,7 +61,7 @@ namespace FI.AtividadeEntrevista.DAL.Beneficiario
         /// <summary>
         /// Excluir Beneficiario
         /// </summary>
-        /// <param name="beneficiario">Objeto de beneficiario</param>
+        /// <param name="cpf">Objeto de beneficiario</param>
         internal void Excluir(string cpf)
         {
             List<System.Data.SqlClient.SqlParameter> parametros = new List<System.Data.SqlClient.SqlParameter>();
