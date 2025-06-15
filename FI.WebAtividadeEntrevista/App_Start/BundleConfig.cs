@@ -47,6 +47,9 @@ namespace FI.WebAtividadeEntrevista
 
             bundles.Add(new ScriptBundle("~/bundles/utils").Include(
                       "~/Scripts/Utils/Utils.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/beneficiario").Include(
+                      "~/Scripts/Beneficiario/FI.Beneficiario.js"));
         }
     }
 }

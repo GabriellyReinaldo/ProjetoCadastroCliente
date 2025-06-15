@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FI.WebAtividadeEntrevista.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -70,7 +71,9 @@ namespace WebAtividadeEntrevista.Models
         /// <summary>
         /// CPF
         /// </summary>
+        [Required]
         public string CPF { get; set; }
 
+        public List<BeneficiarioModel> Beneficiarios { get; set; }
     }    
 }
